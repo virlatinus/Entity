@@ -75,10 +75,10 @@ class EntityController extends Controller
         }
     }
 
-    public function table(MySQL $mySQL, PostgreSQL $postgreSQL)
+    public function table(MySQL $mySQL, PostgreSQL $postgreSQL, SQLite $sqLite)
     {
         try {
-            $data = DataBase::getDB($mySQL, $postgreSQL);
+            $data = DataBase::getDB($mySQL, $postgreSQL, $sqLite);
             return $this->send($data);
         } catch (\Exception $exception) {
             return $this->send('', $exception->getMessage(), 422);

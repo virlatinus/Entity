@@ -11,7 +11,7 @@ abstract class DataBase
 
     abstract protected function getTable(string $database);
 
-    static function getDB(MySQL $mySQL, PostgreSQL $postgreSQL)
+    static function getDB(MySQL $mySQL, PostgreSQL $postgreSQL, SQLite $sqLite)
     {
         $connection = config('database.default');
         $path = "database.connections.{$connection}";
@@ -24,6 +24,9 @@ abstract class DataBase
         }
         if ($driver == 'pgsql') {
             $tables = $postgreSQL->getSchema($database);
+        }
+        if ($driver == 'sqlite') {
+            $tables = $sqLite->getSchema($database);
         }
         $data = [
             'driver' => $driver,
